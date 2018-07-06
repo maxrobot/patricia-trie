@@ -13,6 +13,10 @@ contract PatriciaTree {
     bytes32 public root;
     D.Edge rootEdge;
 
+    event showkey(bytes key);
+    event showvalue(bytes value);
+    event showroot(bytes32 root);
+
     function getNode(bytes32 hash) constant returns (uint, bytes32, bytes32, uint, bytes32, bytes32) {
         var n = nodes[hash];
         return (
@@ -89,6 +93,8 @@ contract PatriciaTree {
     
     // TODO also return the proof
     function insert(bytes key, bytes value) {
+        emit showkey(key);
+        emit showvalue(value);
         D.Label memory k = D.Label(keccak256(key), 256);
         bytes32 valueHash = keccak256(value);
         values[valueHash] = value;
@@ -105,6 +111,7 @@ contract PatriciaTree {
             e = insertAtEdge(rootEdge, k, valueHash);
         }
         root = edgeHash(e);
+        emit showroot(root);
         rootEdge = e;
     }
     
