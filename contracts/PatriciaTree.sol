@@ -16,7 +16,10 @@ contract PatriciaTree {
 
     event showkey(bytes key);
     event showvalue(bytes value);
+    event showEmptyTrie(uint256 trie);
     event showroot(bytes32 root);
+    event showLabel(bytes32 data, uint256 length);
+    event hashData(bytes32 node, uint256 length, bytes32 data);
 
     function PatriciaTree() {
         owner = msg.sender;
@@ -36,6 +39,12 @@ contract PatriciaTree {
     
     function edgeHash(D.Edge e) internal returns (bytes32) {
         return keccak256(e.node, e.label.length, e.label.data);
+    }
+    
+    function testHash(D.Edge e) internal returns (bytes32) {
+        emit hashData(e.node, e.label.length, e.label.data);
+        return keccak256(0xc98320646f8476657262);
+        // return keccak256(e.node, e.label.data);
     }
     
     // Returns the hash of the encoding of a node.
@@ -101,22 +110,26 @@ contract PatriciaTree {
         emit showkey(key);
         emit showvalue(value);
         D.Label memory k = D.Label(keccak256(key), 256);
+        emit showLabel(k.data, k.length);
         bytes32 valueHash = keccak256(value);
         values[valueHash] = value;
         // keys.push(key);
         D.Edge memory e;
         if (rootEdge.node == 0 && rootEdge.label.length == 0)
         {
+            emit showEmptyTrie(0);
             // Empty Trie
             e.label = k;
             e.node = valueHash;
         }
         else
         {
+            emit showEmptyTrie(1);
             e = insertAtEdge(rootEdge, k, valueHash);
         }
         root = edgeHash(e);
         emit showroot(root);
+        emit showroot(testHash(e));
         rootEdge = e;
     }
     

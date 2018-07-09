@@ -36,21 +36,28 @@ contract('patriciaTree.js', (accounts) => {
     const patricia = await Patricia.new();
     const accounts = web3.eth.accounts;
 
-    let insertReceipt = await patricia.insert("A", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    let insertReceipt = await patricia.insert("do", "verb");
     const recoveredKey = insertReceipt.logs[0].args['key'];
     const recoveredValue = insertReceipt.logs[1].args['value'];
     
     console.log(recoveredKey)
     console.log(recoveredValue)
-    console.log(insertReceipt.logs[2].args['root'])
+    console.log("Key: ", insertReceipt.logs[2].args['data'])
+    console.log(insertReceipt.logs[2].args['length'])
+    console.log(insertReceipt.logs[3].args['trie'])
+    console.log("Root: ",insertReceipt.logs[4].args['root'])
+    console.log(insertReceipt.logs[5].args['node'])
+    console.log(insertReceipt.logs[5].args['length'])
+    console.log(insertReceipt.logs[5].args['data'])
+    console.log("Test Root: ", insertReceipt.logs[6].args['root'])
 
     // Get the root
     const rootReceipt = await patricia.root()
     const bytesRoot = hexToBytes(rootReceipt)
     
-    const expectedRoot = hexToBytes("0xd23786fb4a010da3ce639d66d5e904a11dbc02746d1ce25029e53290cabf28ab")
-    console.log(rootReceipt)
-    // console.log(expectedRoot, bytesRoot)
+    const expectedRoot = "0x014f07ed95e2e028804d915e0dbd4ed451e394e1acfd29e463c11a060b2ddef7"
+    console.log("Received root: ", rootReceipt)
+    console.log("Expected root: ", expectedRoot)
     // assert.equal(expectedRoot, bytesRoot)
   })
 
