@@ -9,6 +9,7 @@
   "dependencies": {
     "babel-preset-node6": "^11.0.0",
     "solhint": "^1.2.1",
+    "truffle": "^4.1.13",
     "web3": "^1.0.0-beta.34"
   },
   "devDependencies": {
@@ -20,7 +21,8 @@
     "compile": "truffle compile",
     "deploy": "truffle deploy --network development",
     "depclique": "truffle deploy --network clique",
-    "test": "truffle test --network clique",
+    "migrate": "truffle migrate --network development",
+    "test": "truffle test --network development",
     "coverage": "solidity-coverage",
     "lint": "solhint contracts/**/*.sol",
     "genbin": "solc --overwrite --bin ./contracts/* -o abi",

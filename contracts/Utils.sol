@@ -1,6 +1,6 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.23;
 
-import {D} from "./data.sol";
+import {D} from "./Data.sol";
 
 library Utils {
     /// Returns a label containing the longest common prefix of `check` and `label`

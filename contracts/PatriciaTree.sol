@@ -1,7 +1,7 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.23;
 
-import {D} from "./data.sol";
-import {Utils} from "./utils.sol";
+import {D} from "./Data.sol";
+import {Utils} from "./Utils.sol";
 
 contract PatriciaTree {
     // Mapping of hash of key to value
@@ -11,11 +11,16 @@ contract PatriciaTree {
     mapping (bytes32 => D.Node) nodes;
     // The current root hash, keccak256(node(path_M('')), path_M(''))
     bytes32 public root;
+    address public owner;
     D.Edge rootEdge;
 
     event showkey(bytes key);
     event showvalue(bytes value);
     event showroot(bytes32 root);
+
+    function PatriciaTree() {
+        owner = msg.sender;
+    }
 
     function getNode(bytes32 hash) constant returns (uint, bytes32, bytes32, uint, bytes32, bytes32) {
         var n = nodes[hash];
@@ -155,30 +160,30 @@ contract PatriciaTree {
     }
 }
 
-contract PatriciaTreeTest is PatriciaTree {
-    function test() {
-        //testInsert();
-        testProofs();
-    }
-    function testInsert() internal {
-        insert("one", "ONE");
-        insert("two", "ONE");
-        insert("three", "ONE");
-        insert("four", "ONE");
-        insert("five", "ONE");
-        insert("six", "ONE");
-        insert("seven", "ONE");
-        // update
-        insert("one", "TWO");
-    }
-    function testProofs() internal {
-        insert("one", "ONE");
-        var (branchMask, siblings) = getProof("one");
-        verifyProof(root, "one", "ONE", branchMask, siblings);
-        insert("two", "TWO");
-        (branchMask, siblings) = getProof("one");
-        verifyProof(root, "one", "ONE", branchMask, siblings);
-        (branchMask, siblings) = getProof("two");
-        verifyProof(root, "two", "TWO", branchMask, siblings);
-    }
-}
+// contract TestPatriciaTree is PatriciaTree {
+//     function test() {
+//         //testInsert();
+//         testProofs();
+//     }
+//     function testInsert() internal {
+//         insert("one", "ONE");
+//         insert("two", "ONE");
+//         insert("three", "ONE");
+//         insert("four", "ONE");
+//         insert("five", "ONE");
+//         insert("six", "ONE");
+//         insert("seven", "ONE");
+//         // update
+//         insert("one", "TWO");
+//     }
+//     function testProofs() internal {
+//         insert("one", "ONE");
+//         var (branchMask, siblings) = getProof("one");
+//         verifyProof(root, "one", "ONE", branchMask, siblings);
+//         insert("two", "TWO");
+//         (branchMask, siblings) = getProof("one");
+//         verifyProof(root, "one", "ONE", branchMask, siblings);
+//         (branchMask, siblings) = getProof("two");
+//         verifyProof(root, "two", "TWO", branchMask, siblings);
+//     }
+// }
