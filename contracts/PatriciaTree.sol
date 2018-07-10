@@ -1,7 +1,9 @@
 pragma solidity ^0.4.23;
+pragma experimental ABIEncoderV2;
 
 import {D} from "./Data.sol";
 import {Utils} from "./Utils.sol";
+import "./RLP.sol";
 
 contract PatriciaTree {
     // Mapping of hash of key to value
@@ -20,6 +22,7 @@ contract PatriciaTree {
     event showroot(bytes32 root);
     event showLabel(bytes32 data, uint256 length);
     event hashData(bytes32 node, uint256 length, bytes32 data);
+    // event test(RLP.RLPItem item);
 
     function PatriciaTree() {
         owner = msg.sender;
@@ -41,8 +44,14 @@ contract PatriciaTree {
         return keccak256(e.node, e.label.length, e.label.data);
     }
     
-    function testHash(D.Edge e) internal returns (bytes32) {
+    function testHash(D.Edge e) public returns (bytes32) {
         emit hashData(e.node, e.label.length, e.label.data);
+
+        // RLP.RLPItem memory item = RLP.toRLPItem("0x00");
+
+        // RLP.toList(item);
+
+        // return keccak256(item);
         return keccak256(0xc98320646f8476657262);
         // return keccak256(e.node, e.label.data);
     }

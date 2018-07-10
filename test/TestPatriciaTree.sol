@@ -8,27 +8,27 @@ import {Utils} from "../contracts/Utils.sol";
 
 contract TestPatriciaTree {
 
-    function testSingleInsert() public {
-        PatriciaTree patricia = PatriciaTree(DeployedAddresses.PatriciaTree());
+    // function testSingleInsert() public {
+    //     PatriciaTree patricia = PatriciaTree(DeployedAddresses.PatriciaTree());
 
-        patricia.insert("A", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    //     patricia.insert("A", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-        bytes32 expected = 0xd23786fb4a010da3ce639d66d5e904a11dbc02746d1ce25029e53290cabf28ab;
+    //     bytes32 expected = 0xd23786fb4a010da3ce639d66d5e904a11dbc02746d1ce25029e53290cabf28ab;
 
-        Assert.equal(patricia.root(), expected, "should equal expected");
-    }
+    //     Assert.equal(patricia.root(), expected, "should equal expected");
+    // }
 
-    function testMultipleInsert() public {
-        PatriciaTree patricia = PatriciaTree(DeployedAddresses.PatriciaTree());
+    // function testMultipleInsert() public {
+    //     PatriciaTree patricia = PatriciaTree(DeployedAddresses.PatriciaTree());
 
-        patricia.insert("doe", "reindeer");
-        patricia.insert("dog", "puppy");
-        patricia.insert("dogglesworth", "cat");
+    //     patricia.insert("doe", "reindeer");
+    //     patricia.insert("dog", "puppy");
+    //     patricia.insert("dogglesworth", "cat");
 
-        bytes32 expected = 0x8aad789dff2f538bca5d8ea56e8abe10f4c7ba3a5dea95fea4cd6e7c3a1168d3;
+    //     bytes32 expected = 0x8aad789dff2f538bca5d8ea56e8abe10f4c7ba3a5dea95fea4cd6e7c3a1168d3;
 
-        Assert.equal(patricia.root(), expected, "should equal expected");
-    }
+    //     Assert.equal(patricia.root(), expected, "should equal expected");
+    // }
 
     // function test() {
     //     //testInsert();
